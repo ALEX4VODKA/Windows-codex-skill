@@ -1,0 +1,23 @@
+# Machine-specific or sensitive state: NEVER commit
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.pfx
+*.p12
+*.kubeconfig
+host-profile.md
+.local/
+local/
+
+# Runtime output
+*.log
+*.partial
+.codex-preflight/
+__pycache__/
+.venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Windows kubectl 可靠执行"
+  short_description: "规范处理沙箱权限、UTF-8、工具降级与临时连接失败"
+  default_prompt: "使用 $windows-kubectl-reliable-ops 在 Windows PowerShell 中可靠执行 kubectl 和数据采集任务。"

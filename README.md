@@ -1,6 +1,6 @@
 # Windows Codex Toolkit
 
-独立、长期维护的 Windows Codex 通用 Skill 与 PowerShell 可靠操作规范仓库。它不包含任何业务项目约束、主机路径、凭据或集群配置。
+独立、长期维护的 Windows Codex 通用 Skill。目前实现了防止codex与powershell的屎山代码打架、ssh问题优先定位。
 
 ## 内容
 

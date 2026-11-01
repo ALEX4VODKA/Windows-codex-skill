@@ -13,6 +13,11 @@ tests/
 ```
 
 `windows-kubectl-reliable-ops` 是本仓库维护的 Kubernetes 专项 Skill。
+
+该 Skill 及其四个 PowerShell 脚本主要由 Codex 辅助生成，
+维护者负责需求定义、修改、集成和验证。
+
+修改脚本时应保持现有行为兼容，并增加最小回归验证。
 该 Skill 及其四个 PowerShell 脚本主要由 Codex 辅助生成，修改脚本时应保持现有行为兼容，并补充最小回归验证。
 
 ## 安装 `windows-local-ops`

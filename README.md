@@ -1,6 +1,6 @@
 # Windows Codex Toolkit
 
-独立、长期维护的 Windows Codex 通用 Skill 与 PowerShell 可靠操作规范仓库。它不包含任何业务项目约束、主机路径、凭据或集群配置。
+个人长期维护的 Windows Codex 通用 Skill。目前实现了防止codex与powershell的屎山代码打架等问题。
 
 ## 内容
 
@@ -18,6 +18,7 @@ tests/
 维护者负责需求定义、修改、集成和验证。
 
 修改脚本时应保持现有行为兼容，并增加最小回归验证。
+该 Skill 及其四个 PowerShell 脚本主要由 Codex 辅助生成，修改脚本时应保持现有行为兼容，并补充最小回归验证。
 
 ## 安装 `windows-local-ops`
 

@@ -1,6 +1,6 @@
 # Windows Codex Toolkit
 
-独立、长期维护的 Windows Codex 通用 Skill。目前实现了防止codex与powershell的屎山代码打架、ssh问题优先定位。
+个人长期维护的 Windows Codex 通用 Skill。目前实现了防止codex与powershell的屎山代码打架等问题。
 
 ## 内容
 

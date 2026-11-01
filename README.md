@@ -12,7 +12,8 @@ tests/
   Smoke-Test.ps1                     # Windows PowerShell 冒烟测试
 ```
 
-`windows-kubectl-reliable-ops` 的四个 PowerShell 脚本是导入代码：`Initialize-SessionUtf8.ps1`、`Invoke-WebRequestWithRetry.ps1`、`Invoke-WithRetry.ps1` 和 `Test-ExecutionEnvironment.ps1`。任何修改都应单独审查，保持 Kubernetes 能力兼容，并增加最小回归验证。
+`windows-kubectl-reliable-ops` 是本仓库维护的 Kubernetes 专项 Skill。
+该 Skill 及其四个 PowerShell 脚本主要由 Codex 辅助生成，修改脚本时应保持现有行为兼容，并补充最小回归验证。
 
 ## 安装 `windows-local-ops`
 
@@ -57,3 +58,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\tests\Smoke-Test.ps1
 3. 行为变更必须有最小回归测试，并区分 Windows 运行验证和静态审查。
 4. 提交前检查 diff；使用规范分支和 Conventional Commits。
 5. 未经审核，不提交、推送或自动执行新脚本修改。
+
+## License
+
+This project is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for details.

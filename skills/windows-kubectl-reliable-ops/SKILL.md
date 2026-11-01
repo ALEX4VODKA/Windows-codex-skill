@@ -24,7 +24,7 @@ For Python, keep `PYTHONUTF8=1` and `PYTHONIOENCODING=utf-8`. Open text files wi
 Run the preflight before a long collection or after an environment change:
 
 ```powershell
-& "$env:CODEX_HOME\skills\windows-kubectl-reliable-ops\scripts\Test-ExecutionEnvironment.ps1" -Workspace D:\kubectl
+& "$env:CODEX_HOME\skills\windows-kubectl-reliable-ops\scripts\Test-ExecutionEnvironment.ps1"
 ```
 
 Add `-ProbeKubernetes` only when a live API check is required. Treat its JSON output as evidence, not as permission to broaden access.
@@ -39,9 +39,17 @@ Before each command, classify the operation:
 
 ## Use Deterministic Tool Fallbacks
 
-On this workstation, use `$env:RG_EXECUTABLE`, expected to be `D:\kubectl\.tools\ripgrep\rg.exe`, for every ripgrep call. If the variable is unavailable, use that absolute path directly. Do not invoke bare `rg`: PATH can resolve it to the blocked WindowsApps package binary.
+Prefer `$env:RG_EXECUTABLE` when it is configured. Otherwise, resolve the executable with `Get-Command rg.exe`:
 
-Test the independent executable before relying on it. If its `--version` command fails, use `Select-String` and `Get-ChildItem` in the same PowerShell process. Do not invoke the known-blocked WindowsApps binary.
+```powershell
+$rg = if ($env:RG_EXECUTABLE) {
+    $env:RG_EXECUTABLE
+} else {
+    (Get-Command rg.exe -ErrorAction SilentlyContinue).Source
+}
+```
+
+Before relying on the resolved executable, run `& $rg --version` and verify that it succeeds. If no executable is resolved, the version check fails, or the resolved path is a restricted WindowsApps wrapper, use `Select-String` and `Get-ChildItem` in the same PowerShell process instead.
 
 Prefer structured parsers for JSON/CSV. Avoid passing Chinese dictionary keys through nested PowerShell here-strings; place reusable logic in a UTF-8 script file or use escaped Unicode keys when a shell boundary is unavoidable.
 
@@ -50,8 +58,9 @@ Prefer structured parsers for JSON/CSV. Avoid passing Chinese dictionary keys th
 Use `scripts/Invoke-WithRetry.ps1` for short idempotent read-only commands when the called program lacks retry logic:
 
 ```powershell
+$kubectl = (Get-Command kubectl.exe -ErrorAction Stop).Source
 & "$env:CODEX_HOME\skills\windows-kubectl-reliable-ops\scripts\Invoke-WithRetry.ps1" `
-  -FilePath D:\kubectl\kubectl.exe `
+  -FilePath $kubectl `
   -ArgumentList @('get', '--raw=/readyz', '--request-timeout=10s')
 ```
 

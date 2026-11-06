@@ -8,6 +8,8 @@
 skills/
   windows-local-ops/                 # 本地 PowerShell、编码、输出截断与路径操作
   windows-kubectl-reliable-ops/      # 已有 Kubernetes 专项 Skill 的归档
+distributions/
+  agensi/windows-codex-toolkit/      # 通过 Agensi MCP 按需分发的 Skill Pack
 tests/
   Smoke-Test.ps1                     # Windows PowerShell 冒烟测试
 ```
@@ -36,10 +38,23 @@ New-Item -ItemType Junction -Path $destination -Target $source
 
 已有的 `windows-kubectl-reliable-ops` 不应被直接覆盖。先比较其内容，再决定是否以目录联接迁移，避免两个版本静默分叉。
 
+## Agensi MCP 分发版
+
+`distributions/agensi/windows-codex-toolkit/` 是独立的分发源。Agensi 自身提供
+远程 MCP Server，并通过 `get_skill` 按需返回 `SKILL.md`、参考资料和单个脚本，
+因此本仓库不另建 MCP Server。分发版脚本必须能从临时文件独立运行，不能依赖
+固定安装路径、`CODEX_HOME` 或相邻脚本。
+
+发布前先运行冒烟测试，再将分发目录的**内容**压缩为 ZIP；不要把仓库历史、
+测试输出或主机配置放入包中。当前仓库只准备本地分发源，不自动上传或发布。
+
+具体兼容性决策和目标环境待验证项见
+[`docs/agensi-mcp.md`](docs/agensi-mcp.md)。
+
 ## 验证
 
 ```powershell
-# 此测试只会在系统临时目录创建和删除测试文件。
+# 此测试只会在系统临时目录创建和删除测试文件/目录。
 & .\tests\Smoke-Test.ps1
 
 # 对大文件分段读取时，必须确认最后出现 END_RANGE，随后检查 MORE / TRUNCATED。
